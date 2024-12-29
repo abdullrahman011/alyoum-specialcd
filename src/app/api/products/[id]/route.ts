@@ -10,9 +10,9 @@ interface ProductRow extends RowDataPacket {
 }
 
 export async function DELETE(
-   req: NextRequest,
+   _req: Request | NextRequest,
    { params }: { params: { id: string } }
-): Promise<NextResponse> {
+) {
    const connection = await mysql.createConnection({
        host: process.env.DB_HOST,
        user: process.env.DB_USER,
