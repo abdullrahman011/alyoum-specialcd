@@ -1,5 +1,5 @@
-// src/app/api/products/[id]/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+
+import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 import { unlink } from 'fs/promises';
 import path from 'path';
@@ -11,16 +11,9 @@ interface ProductRow extends RowDataPacket {
 }
 
 export async function DELETE(
-   request: NextRequest | Request,
+   request: Request,
    { params }: { params: { id: string } }
 ) {
-   if (!params.id) {
-       return NextResponse.json(
-           { error: 'Product ID is required' },
-           { status: 400 }
-       );
-   }
-
    const connection = await mysql.createConnection({
        host: process.env.DB_HOST,
        user: process.env.DB_USER,
@@ -56,10 +49,7 @@ export async function DELETE(
            [params.id]
        );
 
-       return NextResponse.json({
-           success: true,
-           message: 'Product deleted successfully'
-       });
+       return NextResponse.json({ success: true });
    } catch (error) {
        console.error('Database Error:', error);
        return NextResponse.json(
