@@ -10,27 +10,36 @@ interface ProductRow extends RowDataPacket {
    image_url: string;
 }
 
-type Context = {
-   params: { id: string }
-}
+export async function DELETE(
+   _: Request | null,
+   { params }: { params: { id: string } }
+) {
+   if (!params.id) {
+       return NextResponse.json(
+           { error: 'Product ID is required' },
+           { status: 400 }
+       );
+   }
 
-export async function DELETE(request: Request, context: Context) {
    const connection = await mysql.createConnection({
-       host: process.env.DB_HOST || 'localhost',
-       user: process.env.DB_USER || 'root',
-       password: process.env.DB_PASSWORD || 'Aa112233',
-       database: process.env.DB_NAME || 'alyoum_special',
-       port: Number(process.env.DB_PORT) || 3306
+       host: process.env.DB_HOST,
+       user: process.env.DB_USER,
+       password: process.env.DB_PASSWORD,
+       database: process.env.DB_NAME,
+       port: Number(process.env.DB_PORT)
    });
 
    try {
        const [rows] = await connection.execute<ProductRow[]>(
            'SELECT image_url FROM products WHERE id = ?',
-           [context.params.id]
+           [params.id]
        );
 
        if (!rows.length) {
-           return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+           return NextResponse.json(
+               { error: 'Product not found' },
+               { status: 404 }
+           );
        }
 
        if (rows[0].image_url) {
@@ -44,7 +53,7 @@ export async function DELETE(request: Request, context: Context) {
 
        await connection.execute(
            'UPDATE products SET is_active = 0 WHERE id = ?',
-           [context.params.id]
+           [params.id]
        );
 
        return NextResponse.json({
