@@ -1,4 +1,3 @@
-// src/app/api/products/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 import { unlink } from 'fs/promises';
@@ -10,14 +9,10 @@ interface ProductRow extends RowDataPacket {
    image_url: string;
 }
 
-interface RouteParams {
-   params: { id: string }
-}
-
 export async function DELETE(
    req: NextRequest,
-   { params }: RouteParams
-) {
+   { params }: { params: { id: string } }
+): Promise<NextResponse> {
    const connection = await mysql.createConnection({
        host: process.env.DB_HOST,
        user: process.env.DB_USER,
