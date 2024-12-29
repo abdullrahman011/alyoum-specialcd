@@ -9,11 +9,10 @@ interface ProductRow extends RowDataPacket {
    image_url: string;
 }
 
-export async function DELETE(
-   request: NextRequest,
-   { params }: { params: { id: string } }
-) {
-   if (!params.id) {
+type RequestParams = { params: { id: string } };
+
+export async function DELETE(request: NextRequest, context: RequestParams) {
+   if (!context.params.id) {
        return NextResponse.json(
            { error: 'Product ID is required' },
            { status: 400 }
@@ -31,7 +30,7 @@ export async function DELETE(
    try {
        const [rows] = await connection.execute<ProductRow[]>(
            'SELECT image_url FROM products WHERE id = ?',
-           [params.id]
+           [context.params.id]
        );
 
        if (!rows.length) {
@@ -52,7 +51,7 @@ export async function DELETE(
 
        await connection.execute(
            'UPDATE products SET is_active = 0 WHERE id = ?',
-           [params.id]
+           [context.params.id]
        );
 
        return NextResponse.json({ 
