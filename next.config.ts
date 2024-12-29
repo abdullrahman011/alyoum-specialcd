@@ -1,15 +1,15 @@
-const config = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'standalone',
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost'
+        protocol: 'https',
+        hostname: '*.netlify.app'
       }
     ]
-  },
-  env: {
-    TOTP_SECRET: 'M53T6LSNGBRE6OCGJFCFKU3YOA4ESMKAM5OXU5TSPFDTYZLCEYSA'
   }
-};
-
-export default config;
+ } as const;
+ 
+ export default nextConfig;
