@@ -1,5 +1,5 @@
 // src/app/api/products/[id]/route.ts
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 import { unlink } from 'fs/promises';
 import path from 'path';
@@ -11,7 +11,7 @@ interface ProductRow extends RowDataPacket {
 }
 
 export async function DELETE(
-   _: Request | null,
+   request: NextRequest | Request,
    { params }: { params: { id: string } }
 ) {
    if (!params.id) {
