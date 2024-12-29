@@ -1,5 +1,5 @@
 // src/app/api/products/[id]/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 import { unlink } from 'fs/promises';
 import path from 'path';
@@ -10,10 +10,11 @@ interface ProductRow extends RowDataPacket {
    image_url: string;
 }
 
-export async function DELETE(
-   req: NextRequest,
-   { params }: { params: { id: string } }
-) {
+type Context = {
+   params: { id: string }
+}
+
+export async function DELETE(request: Request, context: Context) {
    const connection = await mysql.createConnection({
        host: process.env.DB_HOST || 'localhost',
        user: process.env.DB_USER || 'root',
@@ -25,14 +26,11 @@ export async function DELETE(
    try {
        const [rows] = await connection.execute<ProductRow[]>(
            'SELECT image_url FROM products WHERE id = ?',
-           [params.id]
+           [context.params.id]
        );
 
        if (!rows.length) {
-           return NextResponse.json(
-               { error: 'Product not found' },
-               { status: 404 }
-           );
+           return NextResponse.json({ error: 'Product not found' }, { status: 404 });
        }
 
        if (rows[0].image_url) {
@@ -46,14 +44,13 @@ export async function DELETE(
 
        await connection.execute(
            'UPDATE products SET is_active = 0 WHERE id = ?',
-           [params.id]
+           [context.params.id]
        );
 
-       return NextResponse.json({ 
+       return NextResponse.json({
            success: true,
            message: 'Product deleted successfully'
        });
-
    } catch (error) {
        console.error('Database Error:', error);
        return NextResponse.json(
