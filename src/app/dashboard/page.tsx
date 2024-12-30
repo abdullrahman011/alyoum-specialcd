@@ -119,17 +119,22 @@ export default function Dashboard() {
             alert('حدث خطأ في إضافة المنتج');
         }
     };
-
     const handleDelete = async (id: number) => {
         if (confirm('هل أنت متأكد من حذف هذا المنتج؟')) {
             try {
-                const response = await fetch(`/api/products/${id}`, {
-                    method: 'DELETE'
+                const response = await fetch('/api/delete-product', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id })
                 });
-
+    
                 if (response.ok) {
                     setProducts(products.filter(p => p.id !== id));
                     alert('تم حذف المنتج بنجاح');
+                } else {
+                    throw new Error('فشل في حذف المنتج');
                 }
             } catch (error) {
                 console.error('Error deleting product:', error);
