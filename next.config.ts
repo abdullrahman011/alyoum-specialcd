@@ -9,8 +9,7 @@ const nextConfig = {
         hostname: '*.netlify.app'
       }
     ]
-  },
-  target: 'serverless' 
- } satisfies import('next').NextConfig
- 
- export default nextConfig;
+  }
+} satisfies import('next').NextConfig
+
+export default nextConfig;
