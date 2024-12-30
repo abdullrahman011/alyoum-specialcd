@@ -1,14 +1,7 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  output: 'export',
   images: {
-    unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '*.netlify.app'
-      }
-    ]
+    unoptimized: true
   }
 } satisfies import('next').NextConfig
 
