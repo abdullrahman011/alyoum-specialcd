@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+// app/api/products/[id]/route.ts
+import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 import { unlink } from 'fs/promises';
 import path from 'path';
@@ -10,7 +11,7 @@ interface ProductRow extends RowDataPacket {
 }
 
 export async function DELETE(
-   _req: Request | NextRequest,
+   request: Request,
    { params }: { params: { id: string } }
 ) {
    const connection = await mysql.createConnection({
@@ -31,8 +32,8 @@ export async function DELETE(
            try {
                const imagePath = path.join(process.cwd(), 'public', rows[0].image_url);
                await unlink(imagePath);
-           } catch (error) {
-               console.error('Error deleting image:', error);
+           } catch (unlinkError) {
+               console.error('Error deleting image:', unlinkError);
            }
        }
 
@@ -41,7 +42,10 @@ export async function DELETE(
            [params.id]
        );
 
-       return NextResponse.json({ success: true });
+       return NextResponse.json({ message: 'Product deleted successfully' });
+   } catch (dbError) {
+       console.error('Database error:', dbError);
+       return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
    } finally {
        await connection.end();
    }
