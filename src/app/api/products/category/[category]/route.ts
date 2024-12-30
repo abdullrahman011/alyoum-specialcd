@@ -1,39 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(
-   request: NextRequest,
-   { params }: { params: { category: string } }
-): Promise<NextResponse> {
-   const connection = await mysql.createConnection({
-       host: process.env.DB_HOST || 'localhost',
-       user: process.env.DB_USER || 'root',
-       password: process.env.DB_PASSWORD || 'Aa112233',
-       database: process.env.DB_NAME || 'alyoum_special'
-   });
+    _: NextRequest,
+    context: { params: { category: string } }
+) {
+    const { category } = context.params;
+    
+    const connection = await mysql.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME
+    });
 
-   try {
-       console.log('Received category param:', params.category);
-
-       const [allProducts] = await connection.execute(
-           'SELECT * FROM products WHERE is_active = 1'
-       );
-       console.log('All active products:', allProducts);
-
-       const [rows] = await connection.execute(
-           'SELECT * FROM products WHERE category = ? AND is_active = 1',
-           [params.category]
-       );
-      
-       console.log('Filtered products:', rows);
-       return NextResponse.json(rows);
-   } catch (error) {
-       console.error('Database Error:', error);
-       return NextResponse.json(
-           { error: 'Database Error' },
-           { status: 500 }
-       );
-   } finally {
-       await connection.end();
-   }
+    try {
+        const [rows] = await connection.execute(
+            'SELECT * FROM products WHERE category = ? AND is_active = 1',
+            [category]
+        );
+        return NextResponse.json(rows);
+    } catch (err) {
+        console.error('Database Error:', err);
+        return NextResponse.json({ error: 'Database Error' }, { status: 500 });
+    } finally {
+        await connection.end();
+    }
 }
