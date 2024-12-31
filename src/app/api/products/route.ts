@@ -6,7 +6,10 @@ export async function GET() {
        host: process.env.DB_HOST,
        user: process.env.DB_USER,
        password: process.env.DB_PASSWORD,
-       database: process.env.DB_NAME
+       database: process.env.DB_NAME,
+       ssl: {
+           rejectUnauthorized: true
+       }
    });
 
    try {
@@ -14,7 +17,7 @@ export async function GET() {
        return NextResponse.json(rows);
    } catch (error) {
        console.error('Database Error:', error);
-       return NextResponse.json({ error: 'Database Error' }, { status: 500 });
+       return NextResponse.json({ error: 'Database Error', details: error }, { status: 500 });
    } finally {
        await connection.end();
    }
@@ -26,7 +29,10 @@ export async function POST(request: Request) {
        host: process.env.DB_HOST,
        user: process.env.DB_USER,
        password: process.env.DB_PASSWORD,
-       database: process.env.DB_NAME
+       database: process.env.DB_NAME,
+       ssl: {
+           rejectUnauthorized: true
+       }
    });
 
    try {
@@ -37,7 +43,7 @@ export async function POST(request: Request) {
        return NextResponse.json(result);
    } catch (error) {
        console.error('Database Error:', error);
-       return NextResponse.json({ error: 'Database Error' }, { status: 500 });
+       return NextResponse.json({ error: 'Database Error', details: error }, { status: 500 });
    } finally {
        await connection.end();
    }
