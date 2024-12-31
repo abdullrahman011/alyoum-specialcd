@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 
-type CategoryRouteContext = {
-  params: { category: string };
-};
+interface CategoryParams {
+  category: string;
+}
 
 export async function GET(
   request: NextRequest,
-  context: CategoryRouteContext
+  { params }: { params: CategoryParams }
 ) {
     const connection = await mysql.createConnection({
         host: process.env.DB_HOST,
@@ -19,7 +19,7 @@ export async function GET(
     try {
         const [rows] = await connection.execute(
             'SELECT * FROM products WHERE category = ? AND is_active = 1',
-            [context.params.category]
+            [params.category]
         );
         return NextResponse.json(rows);
     } catch (err) {
