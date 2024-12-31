@@ -29,7 +29,7 @@ const categories = [
 export default function Dashboard() {
     const { status } = useSession();
     const router = useRouter();
-    
+
     const [products, setProducts] = useState<Product[]>([]);
     const [file, setFile] = useState<File | null>(null);
     const [formData, setFormData] = useState<Product>({
@@ -129,7 +129,7 @@ export default function Dashboard() {
                     },
                     body: JSON.stringify({ id })
                 });
-    
+
                 if (response.ok) {
                     setProducts(products.filter(p => p.id !== id));
                     alert('تم حذف المنتج بنجاح');
@@ -273,6 +273,7 @@ export default function Dashboard() {
                                 src={product.image_url}
                                 alt={product.name}
                                 fill
+                                priority
                                 className="object-cover rounded"
                             />
                         </div>

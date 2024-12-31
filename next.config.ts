@@ -2,7 +2,12 @@ const nextConfig = {
   output: 'standalone',
   images: { 
     unoptimized: true,
-    domains: ['alyoum-special.netlify.app', 'res.cloudinary.com']
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**'
+      }
+    ]
   }
 } satisfies import('next').NextConfig
 
