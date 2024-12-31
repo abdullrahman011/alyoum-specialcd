@@ -1,10 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 
-export async function GET(
- request: NextRequest,
- { params }: { params: { category: string } }
-): Promise<NextResponse> {
+type Params = {
+ params: {
+   category: string;
+ };
+};
+
+export async function GET(req: NextRequest, { params }: Params) {
    const connection = await mysql.createConnection({
        host: process.env.DB_HOST,
        user: process.env.DB_USER,
@@ -13,14 +16,21 @@ export async function GET(
    });
 
    try {
+       const category = params.category;
        const [rows] = await connection.execute(
            'SELECT * FROM products WHERE category = ? AND is_active = 1',
-           [params.category]
+           [category]
        );
-       return NextResponse.json(rows);
+       return new NextResponse(JSON.stringify(rows), {
+           status: 200,
+           headers: { 'Content-Type': 'application/json' }
+       });
    } catch (err) {
-       console.error(err);
-       return NextResponse.json({ error: 'Database Error' }, { status: 500 });
+       console.error('Error:', err);
+       return new NextResponse(JSON.stringify({ error: 'Database Error' }), {
+           status: 500,
+           headers: { 'Content-Type': 'application/json' }
+       });
    } finally {
        await connection.end();
    }
