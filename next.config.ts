@@ -1,8 +1,6 @@
 const nextConfig = {
-  output: 'export',
-  images: {
-    unoptimized: true
-  }
+  output: 'standalone',
+  images: { unoptimized: true }
 } satisfies import('next').NextConfig
 
 export default nextConfig;

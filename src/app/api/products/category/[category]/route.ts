@@ -1,10 +1,8 @@
-import { type NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 
-export const dynamic = 'force-dynamic';
-
 export async function GET(
-    request: NextRequest,
+    request: Request,
     { params }: { params: { category: string } }
 ) {
     const connection = await mysql.createConnection({
@@ -20,12 +18,9 @@ export async function GET(
             [params.category]
         );
         return NextResponse.json(rows);
-    } catch (err) {
-        console.error('Database Error:', err);
-        return NextResponse.json(
-            { error: 'Database Error' },
-            { status: 500 }
-        );
+    } catch (error) {
+        console.error('Database Error:', error);
+        return NextResponse.json({ error: 'Database Error' }, { status: 500 });
     } finally {
         await connection.end();
     }
