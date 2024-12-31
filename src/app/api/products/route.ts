@@ -2,26 +2,32 @@ import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 
 export async function GET() {
-   const uri = `mysql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?ssl=true`;
-   
-   const connection = await mysql.createConnection(uri);
+   const connection = await mysql.createConnection({
+       host: process.env.DB_HOST,
+       user: process.env.DB_USER,
+       password: process.env.DB_PASSWORD,
+       database: process.env.DB_NAME
+   });
 
    try {
        const [rows] = await connection.execute('SELECT * FROM products');
        return NextResponse.json(rows);
    } catch (error) {
        console.error('Database Error:', error);
-       return NextResponse.json({ error: 'Database Error', details: error }, { status: 500 });
+       return NextResponse.json({ error: 'Database Error' }, { status: 500 });
    } finally {
        await connection.end();
    }
 }
 
 export async function POST(request: Request) {
-   const uri = `mysql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?ssl=true`;
-   
    const data = await request.json();
-   const connection = await mysql.createConnection(uri);
+   const connection = await mysql.createConnection({
+       host: process.env.DB_HOST,
+       user: process.env.DB_USER,
+       password: process.env.DB_PASSWORD,
+       database: process.env.DB_NAME
+   });
 
    try {
        const [result] = await connection.execute(
@@ -31,7 +37,7 @@ export async function POST(request: Request) {
        return NextResponse.json(result);
    } catch (error) {
        console.error('Database Error:', error);
-       return NextResponse.json({ error: 'Database Error', details: error }, { status: 500 });
+       return NextResponse.json({ error: 'Database Error' }, { status: 500 });
    } finally {
        await connection.end();
    }
