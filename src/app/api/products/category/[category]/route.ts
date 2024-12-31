@@ -1,9 +1,13 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 
+type CategoryRouteContext = {
+  params: { category: string };
+};
+
 export async function GET(
-    request: Request,
-    { params }: { params: { category: string } }
+  request: NextRequest,
+  context: CategoryRouteContext
 ) {
     const connection = await mysql.createConnection({
         host: process.env.DB_HOST,
@@ -15,11 +19,11 @@ export async function GET(
     try {
         const [rows] = await connection.execute(
             'SELECT * FROM products WHERE category = ? AND is_active = 1',
-            [params.category]
+            [context.params.category]
         );
         return NextResponse.json(rows);
-    } catch (error) {
-        console.error('Database Error:', error);
+    } catch (err) {
+        console.error(err);
         return NextResponse.json({ error: 'Database Error' }, { status: 500 });
     } finally {
         await connection.end();
