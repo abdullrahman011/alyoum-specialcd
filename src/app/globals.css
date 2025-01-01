@@ -9,15 +9,21 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #F9F9F9 ;
-    --foreground: #333333 ;
-    padding: 1.5%;
-  
+    --background: #F9F9F9;
+    --foreground: #333333;
+    padding: 1.5%; /* padding هنا غير مرتبط بـ body بشكل مباشر */
   }
+}
+
+@font-face {
+  font-family: 'Marhey'; /* اسم الخط */
+  src: url('/font/static/Marhey-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Marhey', sans-serif; /* استخدام الخط الجديد */
 }

@@ -266,35 +266,41 @@ export default function Dashboard() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {products.map(product => (
-                    <div key={product.id} className="border rounded p-4 shadow-md">
-                        <div className="relative h-48 mb-2">
-                            <Image
-                                src={product.image_url}
-                                alt={product.name}
-                                fill
-                                priority
-                                className="object-cover rounded"
-                            />
-                        </div>
-                        <h3 className="font-bold text-lg mb-2">{product.name}</h3>
-                        <p className="text-gray-600 mb-2">{product.description}</p>
-                        <p className="text-sm text-gray-500 mb-2">
-                            {categories.find(c => c.value === product.category)?.label}
-                        </p>
-                        <div className="flex justify-between items-center mb-2">
-                            <del className="text-red-500">{product.price_before} SAR</del>
-                            <span className="font-bold text-green-600">{product.price_after} SAR</span>
-                        </div>
-                        <button
-                            onClick={() => handleDelete(product.id!)}
-                            className="w-full mt-2 bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 transition-colors"
-                        >
-                            حذف
-                        </button>
+    {products.map(product => (
+        <div key={product.id} className="border rounded p-4 shadow-md">
+            <div className="relative h-48 mb-2">
+                {product.image_url ? (
+                    <Image
+                        src={product.image_url}
+                        alt={product.name}
+                        fill
+                        priority
+                        className="object-cover rounded"
+                    />
+                ) : (
+                    <div className="h-full w-full bg-gray-200 rounded flex items-center justify-center">
+                        <span className="text-gray-500">لا توجد صورة</span>
                     </div>
-                ))}
+                )}
             </div>
+            <h3 className="font-bold text-lg mb-2">{product.name}</h3>
+            <p className="text-gray-600 mb-2">{product.description}</p>
+            <p className="text-sm text-gray-500 mb-2">
+                {categories.find(c => c.value === product.category)?.label}
+            </p>
+            <div className="flex justify-between items-center mb-2">
+                <del className="text-red-500">{product.price_before} SAR</del>
+                <span className="font-bold text-green-600">{product.price_after} SAR</span>
+            </div>
+            <button
+                onClick={() => handleDelete(product.id!)}
+                className="w-full mt-2 bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 transition-colors"
+            >
+                حذف
+            </button>
+        </div>
+    ))}
+</div>
         </div>
     );
 }

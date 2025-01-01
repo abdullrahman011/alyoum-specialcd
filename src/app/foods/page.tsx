@@ -40,7 +40,7 @@ export default function FoodsPage() {
         <main className="min-h-screen">
             <div className="flex justify-center">
                 <Image 
-                    className="cursor-pointer" 
+                    className="cursor-pointer border-2 rounded-xl" 
                     onClick={() => location.href="/"} 
                     src="/special day.png" 
                     alt="special day" 
@@ -52,7 +52,7 @@ export default function FoodsPage() {
             <div className="flex justify-end items-center mb-8 px-4">
                 <div className="flex items-center gap-2">
                     <RiInformationFill className="text-2xl text-blue-500" />
-                    <h1 className="font-bold text-5xl">عروض اليوم للمطاعم و المقاهي</h1>
+                    <h1 className="font-bold md:text-5xl text-center text-xl">عروض اليوم للمطاعم و المقاهي</h1>
                 </div>
             </div>
 

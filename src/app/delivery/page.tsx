@@ -14,12 +14,12 @@ interface Product {
     category: string;
 }
 
-export default function DeliveryPage() {
+export default function FoodsPage() {
     const [products, setProducts] = useState<Product[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const fetchDeliveryProducts = async () => {
+        const fetchFoodProducts = async () => {
             try {
                 const response = await fetch('/api/products/category/delivery');
                 if (response.ok) {
@@ -27,20 +27,20 @@ export default function DeliveryPage() {
                     setProducts(data);
                 }
             } catch (error) {
-                console.error('Error fetching  products:', error);
+                console.error('Error fetching food products:', error);
             } finally {
                 setIsLoading(false);
             }
         };
 
-        fetchDeliveryProducts();
+        fetchFoodProducts();
     }, []);
 
     return (
         <main className="min-h-screen">
             <div className="flex justify-center">
                 <Image 
-                    className="cursor-pointer" 
+                    className="cursor-pointer border-2 rounded-xl" 
                     onClick={() => location.href="/"} 
                     src="/special day.png" 
                     alt="special day" 
@@ -52,7 +52,7 @@ export default function DeliveryPage() {
             <div className="flex justify-end items-center mb-8 px-4">
                 <div className="flex items-center gap-2">
                     <RiInformationFill className="text-2xl text-blue-500" />
-                    <h1 className="font-bold text-5xl">عروض لتطبيقات التوصيل</h1>
+                    <h1 className="font-bold md:text-5xl text-center text-xl">عروض اليوم لتطبيقات التوصيل</h1>
                 </div>
             </div>
 

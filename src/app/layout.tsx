@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Alyoum Special ",
+  title: "Aofer | أوفر" ,
   description: "كُن على اطلاع بأخر العروض اليومية",
   icons: {
     icon: '/special day.png',

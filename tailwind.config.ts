@@ -12,6 +12,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        sans: ['"Marhey"', "sans-serif"], // تعيين الخط الجديد كـ sans الافتراضي
+      },
     },
   },
   plugins: [],

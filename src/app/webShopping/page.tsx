@@ -38,9 +38,9 @@ export default function Webstore() {
 
     return (
         <main>
-            <div className="flex justify-center">
+            <div className="flex justify-center ">
                 <Image
-                    className="cursor-pointer"
+                    className="cursor-pointer border-2 rounded-xl"
                     onClick={() => location.href = "/"}
                     src="/special day.png"
                     alt="special day"
@@ -52,7 +52,7 @@ export default function Webstore() {
             <div className="flex justify-end items-center mb-8">
                 <div className="flex items-center gap-2 mr-2">
                     <RiInformationFill className="text-2xl text-blue-500" />
-                    <p className="font-bold text-5xl">عروض اليوم للمتاجر الإلكترونية</p>
+                    <p className="font-bold md:text-5xl text-center text-xl">عروض اليوم للمتاجر الإلكترونية</p>
                 </div>
             </div>
 

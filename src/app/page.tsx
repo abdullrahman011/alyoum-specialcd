@@ -13,7 +13,7 @@ export default function Home() {
       </div>
       
       <div className="text-[#333333] text-right mt-[4vh] px-[1vh] bolid">
-        <h1 className="text-6xl mb-[2%]">عروض اليوم</h1>
+        <h1 className="md:text-6xl mb-[2%] text-2xl">عروض اليوم</h1>
         <Main />
         <h1 className="text-4xl text-center mb-[2%]">افضل عروض اليوم</h1>
         <Best />
