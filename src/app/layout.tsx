@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from '@/components/AuthProvider'; // تصحيح المسار هنا
+import { AuthProvider } from '@/components/AuthProvider';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aofer | أوفر" ,
+  title: "Aofer | أوفر",
   description: "كُن على اطلاع بأخر العروض اليومية",
   icons: {
     icon: '/special day.png',
@@ -29,11 +30,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <AuthProvider>{children}</AuthProvider>
+    <html lang="ar" dir="rtl">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <GoogleAnalytics GA_MEASUREMENT_ID="G-V29BMZFJPC
+" /> {/* استبدل بمعرف القياس الخاص بك */}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
