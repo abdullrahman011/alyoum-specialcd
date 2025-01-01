@@ -27,3 +27,12 @@ body {
   background: var(--background);
   font-family: 'Marhey', sans-serif; /* استخدام الخط الجديد */
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

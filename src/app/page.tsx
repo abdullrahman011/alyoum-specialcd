@@ -3,6 +3,7 @@ import React from 'react';
 import Image from "next/image";
 import { Main } from "./components/main";
 import { Best } from "./components/best";
+import { CountdownTimer } from "./components/CountdownTimer";
 
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       <div className="flex justify-center">
         <Image src="/special day.png" alt="special day" width={200} height={200} />
       </div>
+      <CountdownTimer />
       
       <div className="text-[#333333] text-right mt-[4vh] px-[1vh] bolid">
         <h1 className="md:text-6xl mb-[2%] text-2xl">عروض اليوم</h1>
