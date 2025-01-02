@@ -31,19 +31,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <head>
-        <GoogleTags />
-      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe 
-            src="https://www.googletagmanager.com/ns.html?id=GT-1ZDW18YH3P"
-            height="0" 
-            width="0" 
-            style={{ display: 'none', visibility: 'hidden' }}
-          />
-        </noscript>
+        <GoogleTags />
         <AuthProvider>
           {children}
         </AuthProvider>
