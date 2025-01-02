@@ -19,26 +19,12 @@ export default function GoogleTags() {
             </Script>
 
             {/* Google AdSense */}
-            <Script
-                async
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+            <Script 
+                async 
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6285603860927889"
+                crossOrigin="anonymous"
                 strategy="afterInteractive"
-                data-ad-client="ca-pub-6285603860927889"
             />
-            <Script id="google-adsense" strategy="afterInteractive">
-                {`
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                `}
-            </Script>
-
-            {/* Google Ads */}
-            <Script id="google-ads" strategy="afterInteractive">
-                {`
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('config', 'G-BPXPVW8P5E');
-                `}
-            </Script>
         </>
     );
 }
