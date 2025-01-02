@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from '@/components/AuthProvider';
-import GoogleAnalytics from '@/components/GoogleAnalytics';
+import GoogleTags from '@/components/GoogleTags';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +31,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
+      <head>
+        <GoogleTags />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <GoogleAnalytics GA_MEASUREMENT_ID="G-V29BMZFJPC
-" /> {/* استبدل بمعرف القياس الخاص بك */}
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe 
+            src="https://www.googletagmanager.com/ns.html?id=GT-NCLZMVVN"
+            height="0" 
+            width="0" 
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
         <AuthProvider>
           {children}
         </AuthProvider>
