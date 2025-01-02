@@ -6,7 +6,7 @@ export default function GoogleTags() {
         <>
             {/* Google Analytics */}
             <Script
-                src={`https://www.googletagmanager.com/gtag/js?id=G-V29BMZFJPC`}
+                src={`https://www.googletagmanager.com/gtag/js?id=G-1ZDW18YH3P`}
                 strategy="afterInteractive"
             />
             <Script id="google-analytics" strategy="afterInteractive">
@@ -14,7 +14,7 @@ export default function GoogleTags() {
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
-                    gtag('config', 'G-V29BMZFJPC');
+                    gtag('config', 'G-1ZDW18YH3P');
                 `}
             </Script>
 
@@ -25,7 +25,7 @@ export default function GoogleTags() {
                     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                    })(window,document,'script','dataLayer','GT-NCLZMVVN');
+                    })(window,document,'script','dataLayer','GT-1ZDW18YH3P');
                 `}
             </Script>
         </>
