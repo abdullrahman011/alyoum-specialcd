@@ -16,6 +16,7 @@ interface Product {
 
 export function Best() {
    const [bestProducts, setBestProducts] = useState<Product[]>([]);
+   const [isLoading, setIsLoading] = useState(true);
 
    const fetchBestProducts = async () => {
        try {
@@ -29,6 +30,8 @@ export function Best() {
            }
        } catch (error) {
            console.error('Error fetching best products:', error);
+       } finally {
+           setIsLoading(false);
        }
    };
 
@@ -36,19 +39,24 @@ export function Best() {
        fetchBestProducts();
        // تحديث كل 5 ثواني
        const interval = setInterval(fetchBestProducts, 5000);
+       // تنظيف المؤقت عند إزالة المكون
        return () => clearInterval(interval);
    }, []);
 
+   if (isLoading) {
+       return <div className="text-center py-4">جاري التحميل...</div>;
+   }
+
    if (bestProducts.length === 0) {
-       return null;
+       return <div className="text-center py-4">لا توجد عروض مميزة حالياً</div>;
    }
 
    return (
        <div className="relative w-full">
            <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory">
                {bestProducts.map(product => (
-                   <div 
-                       key={`${product.id}-${Date.now()}`} 
+                   <div
+                       key={product.id} // تم إزالة Date.now() لتجنب إعادة التحميل غير الضرورية
                        className="flex-none w-80 mx-2 snap-center border rounded-lg shadow-md overflow-hidden"
                    >
                        <div className="relative h-48">
