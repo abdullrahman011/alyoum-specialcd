@@ -14,7 +14,9 @@ export default function GoogleTags() {
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
-                    gtag('config', 'G-V29BMZFJPC');
+                    gtag('config', 'G-V29BMZFJPC', {
+                        cookie_flags: 'SameSite=None;Secure'
+                    });
                 `}
             </Script>
 
@@ -22,11 +24,15 @@ export default function GoogleTags() {
             <Script 
                 id="adsbygoogle"
                 async 
-                src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6285603860927889`}
-                strategy="afterInteractive"
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+                data-ad-client="ca-pub-6285603860927889"
+                strategy="lazyOnload"
                 crossOrigin="anonymous"
+                onLoad={() => {
+                    console.log('AdSense loaded successfully');
+                }}
                 onError={(e) => {
-                    console.error('AdSense error:', e);
+                    console.error('AdSense loading error:', e);
                 }}
             />
         </>
