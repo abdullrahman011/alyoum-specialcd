@@ -17,13 +17,6 @@ export default function GoogleTags() {
                     gtag('config', 'G-V29BMZFJPC');
                 `}
             </Script>
-
-            {/* Google AdSense */}
-            <Script
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6285603860927889"
-                strategy="afterInteractive"
-                crossOrigin="anonymous"
-            />
         </>
     );
 }
