@@ -7,9 +7,9 @@ export default function GoogleTags() {
             {/* Google Analytics */}
             <Script
                 src={`https://www.googletagmanager.com/gtag/js?id=G-V29BMZFJPC`}
-                strategy="lazyOnload"
+                strategy="afterInteractive"
             />
-            <Script id="google-analytics">
+            <Script id="google-analytics" strategy="afterInteractive">
                 {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
@@ -18,12 +18,27 @@ export default function GoogleTags() {
                 `}
             </Script>
 
-            {/* Google AdSense - تم تبسيط الكود */}
+            {/* Google AdSense */}
             <Script
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6285603860927889"
                 async
-                crossOrigin="anonymous"
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+                strategy="afterInteractive"
+                data-ad-client="ca-pub-6285603860927889"
             />
+            <Script id="google-adsense" strategy="afterInteractive">
+                {`
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                `}
+            </Script>
+
+            {/* Google Ads */}
+            <Script id="google-ads" strategy="afterInteractive">
+                {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('config', 'G-BPXPVW8P5E');
+                `}
+            </Script>
         </>
     );
 }
