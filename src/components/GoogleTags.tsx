@@ -20,10 +20,14 @@ export default function GoogleTags() {
 
             {/* Google AdSense */}
             <Script 
+                id="adsbygoogle"
                 async 
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6285603860927889"
-                crossOrigin="anonymous"
+                src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6285603860927889`}
                 strategy="afterInteractive"
+                crossOrigin="anonymous"
+                onError={(e) => {
+                    console.error('AdSense error:', e);
+                }}
             />
         </>
     );
