@@ -12,8 +12,8 @@ export default function Home() {
         <Image 
           src="/special day.png" 
           alt="special day" 
-          width={200} 
-          height={200} 
+          width={100} 
+          height={100} 
           priority
         />
       </div>

@@ -46,8 +46,8 @@ export default function BanksPage() {
                    onClick={() => location.href="/"} 
                    src="/special day.png" 
                    alt="special day" 
-                   width={200} 
-                   height={200} 
+                   width={150} 
+                   height={150} 
                />
            </div>
 
