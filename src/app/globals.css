@@ -2,28 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Tajawal:wght@400;700&display=swap');
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-primary: #4c259a;
+  --color-secondary: #55d311;
+  --color-danger: #dc2626;
+  --color-gray: #e5e7eb;
+  --color-gray-light: #f9fafb;
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Tajawal', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #F9F9F9;
+    --background: #f9fafb;
     --foreground: #333333;
     padding: 1.5%; /* padding هنا غير مرتبط بـ body بشكل مباشر */
   }
 }
 
-@font-face {
-  font-family: 'Marhey'; /* اسم الخط */
-  src: url('/font/static/Marhey-VariableFont_wght.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Marhey', sans-serif; /* استخدام الخط الجديد */
+  font-family: var(--font-body);
 }
